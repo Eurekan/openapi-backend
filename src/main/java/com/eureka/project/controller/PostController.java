@@ -44,9 +44,9 @@ public class PostController {
     /**
      * 创建
      *
-     * @param postAddRequest
-     * @param request
-     * @return
+     * @param postAddRequest 帖子增加请求
+     * @param request        http 请求
+     * @return postId
      */
     @PostMapping("/add")
     public BaseResponse<Long> addPost(@RequestBody PostAddRequest postAddRequest, HttpServletRequest request) {
@@ -70,9 +70,9 @@ public class PostController {
     /**
      * 删除
      *
-     * @param deleteRequest
-     * @param request
-     * @return
+     * @param deleteRequest 删除请求
+     * @param request       http 请求
+     * @return 删除结果
      */
     @PostMapping("/delete")
     public BaseResponse<Boolean> deletePost(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
@@ -97,13 +97,12 @@ public class PostController {
     /**
      * 更新
      *
-     * @param postUpdateRequest
-     * @param request
-     * @return
+     * @param postUpdateRequest 帖子更新请求
+     * @param request           http 请求
+     * @return 更新结果
      */
     @PostMapping("/update")
-    public BaseResponse<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest,
-                                            HttpServletRequest request) {
+    public BaseResponse<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest, HttpServletRequest request) {
         if (postUpdateRequest == null || postUpdateRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -129,8 +128,8 @@ public class PostController {
     /**
      * 根据 id 获取
      *
-     * @param id
-     * @return
+     * @param id postId
+     * @return 帖子
      */
     @GetMapping("/get")
     public BaseResponse<Post> getPostById(long id) {
@@ -144,8 +143,8 @@ public class PostController {
     /**
      * 获取列表（仅管理员可使用）
      *
-     * @param postQueryRequest
-     * @return
+     * @param postQueryRequest 帖子查询请求
+     * @return 帖子列表
      */
     @AuthCheck(mustRole = "admin")
     @GetMapping("/list")
@@ -162,12 +161,13 @@ public class PostController {
     /**
      * 分页获取列表
      *
-     * @param postQueryRequest
-     * @param request
-     * @return
+     * @param postQueryRequest 帖子查询请求
+     * @param request          http 请求
+     * @return 分页帖子列表
      */
     @GetMapping("/list/page")
-    public BaseResponse<Page<Post>> listPostByPage(PostQueryRequest postQueryRequest, HttpServletRequest request) {
+    public BaseResponse<Page<Post>> listPostByPage(PostQueryRequest postQueryRequest,
+                                                   HttpServletRequest request) {
         if (postQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -186,8 +186,7 @@ public class PostController {
         }
         QueryWrapper<Post> queryWrapper = new QueryWrapper<>(postQuery);
         queryWrapper.like(StringUtils.isNotBlank(content), "content", content);
-        queryWrapper.orderBy(StringUtils.isNotBlank(sortField),
-                sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
+        queryWrapper.orderBy(StringUtils.isNotBlank(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
         Page<Post> postPage = postService.page(new Page<>(current, size), queryWrapper);
         return ResultUtils.success(postPage);
     }

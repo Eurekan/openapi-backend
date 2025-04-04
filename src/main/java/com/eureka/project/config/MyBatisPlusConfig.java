@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
  * MyBatis Plus 配置
  */
 @Configuration
-@MapperScan("com.yupi.project.mapper")
+@MapperScan("com.eureka.project.mapper")
 public class MyBatisPlusConfig {
 
     /**
      * 拦截器配置
      *
-     * @return
+     * @return MybatisPlus 注册器
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {

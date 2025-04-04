@@ -1,10 +1,12 @@
 package com.eureka.project.exception;
 
 import com.eureka.project.common.ErrorCode;
+import lombok.Getter;
 
 /**
  * 自定义异常类
  */
+@Getter
 public class BusinessException extends RuntimeException {
 
     private final int code;
@@ -24,7 +26,4 @@ public class BusinessException extends RuntimeException {
         this.code = errorCode.getCode();
     }
 
-    public int getCode() {
-        return code;
-    }
 }

@@ -36,8 +36,8 @@ public class UserController {
     /**
      * 用户注册
      *
-     * @param userRegisterRequest
-     * @return
+     * @param userRegisterRequest 用户注册请求
+     * @return userId
      */
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
@@ -57,9 +57,9 @@ public class UserController {
     /**
      * 用户登录
      *
-     * @param userLoginRequest
-     * @param request
-     * @return
+     * @param userLoginRequest 用户登录请求
+     * @param request          http 请求
+     * @return 用户
      */
     @PostMapping("/login")
     public BaseResponse<User> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
@@ -78,8 +78,8 @@ public class UserController {
     /**
      * 用户注销
      *
-     * @param request
-     * @return
+     * @param request http 请求
+     * @return 登出结果
      */
     @PostMapping("/logout")
     public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
@@ -93,8 +93,8 @@ public class UserController {
     /**
      * 获取当前登录用户
      *
-     * @param request
-     * @return
+     * @param request http 请求
+     * @return 脱敏用户
      */
     @GetMapping("/get/login")
     public BaseResponse<UserVO> getLoginUser(HttpServletRequest request) {
@@ -111,9 +111,9 @@ public class UserController {
     /**
      * 创建用户
      *
-     * @param userAddRequest
-     * @param request
-     * @return
+     * @param userAddRequest 用户添加请求
+     * @param request        http 请求
+     * @return userId
      */
     @PostMapping("/add")
     public BaseResponse<Long> addUser(@RequestBody UserAddRequest userAddRequest, HttpServletRequest request) {
@@ -132,9 +132,9 @@ public class UserController {
     /**
      * 删除用户
      *
-     * @param deleteRequest
-     * @param request
-     * @return
+     * @param deleteRequest 删除请求
+     * @param request       http 请求
+     * @return 删除结果
      */
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUser(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
@@ -148,9 +148,9 @@ public class UserController {
     /**
      * 更新用户
      *
-     * @param userUpdateRequest
-     * @param request
-     * @return
+     * @param userUpdateRequest 用户更新请求
+     * @param request           http 请求
+     * @return 更新结果
      */
     @PostMapping("/update")
     public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateRequest userUpdateRequest, HttpServletRequest request) {
@@ -166,9 +166,9 @@ public class UserController {
     /**
      * 根据 id 获取用户
      *
-     * @param id
-     * @param request
-     * @return
+     * @param id      userId
+     * @param request http 请求
+     * @return 脱敏用户
      */
     @GetMapping("/get")
     public BaseResponse<UserVO> getUserById(int id, HttpServletRequest request) {
@@ -184,9 +184,9 @@ public class UserController {
     /**
      * 获取用户列表
      *
-     * @param userQueryRequest
-     * @param request
-     * @return
+     * @param userQueryRequest 用户查询请求
+     * @param request          http 请求
+     * @return 脱敏用户列表
      */
     @GetMapping("/list")
     public BaseResponse<List<UserVO>> listUser(UserQueryRequest userQueryRequest, HttpServletRequest request) {
@@ -207,9 +207,9 @@ public class UserController {
     /**
      * 分页获取用户列表
      *
-     * @param userQueryRequest
-     * @param request
-     * @return
+     * @param userQueryRequest 用户查询请求
+     * @param request          http 请求
+     * @return 分页脱敏用户列表
      */
     @GetMapping("/list/page")
     public BaseResponse<Page<UserVO>> listUserByPage(UserQueryRequest userQueryRequest, HttpServletRequest request) {
