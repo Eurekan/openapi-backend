@@ -244,8 +244,9 @@ public class InterfaceInfoController {
      */
     @PostMapping("/offline")
     @AuthCheck(mustRole = "admin")
-    public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest,
-                                                      HttpServletRequest request) {
+    public BaseResponse<Boolean> offlineInterfaceInfo(
+            @RequestBody IdRequest idRequest,
+            HttpServletRequest request) {
         // 校验接口是否存在
         if (idRequest == null || idRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
