@@ -1,5 +1,6 @@
 package com.eureka.project.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eureka.project.common.ErrorCode;
 import com.eureka.project.exception.BusinessException;
@@ -33,6 +34,28 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口剩余调用次数不能小于0");
             }
         }
+    }
+
+    /**
+     * 统计调用次数
+     *
+     * @param interfaceInfoId 接口信息 id
+     * @param userId          用户 id
+     * @return 是否成功
+     */
+    @Override
+    public boolean invokeCount(long interfaceInfoId, long userId) {
+        // 校验参数
+        if (interfaceInfoId <= 0 || userId <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 构造查询条件
+        UpdateWrapper<UserInterfaceInfo> updateWrapper = new UpdateWrapper<>();
+        updateWrapper
+                .eq("interfaceInfoId", interfaceInfoId)
+                .eq("userId", userId)
+                .setSql("leftNum = leftNum - 1, totalNum = totalNum + 1");
+        return this.update(updateWrapper);
     }
 
 }
