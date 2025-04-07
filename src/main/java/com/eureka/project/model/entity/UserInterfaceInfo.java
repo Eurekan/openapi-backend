@@ -4,15 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户调用接口关系
  */
-@TableName(value ="user_interface_info")
+@TableName(value = "user_interface_info")
 @Data
-public class UserInterfaceInfo {
+public class UserInterfaceInfo implements Serializable {
     /**
      * 主键
      */
@@ -59,4 +61,6 @@ public class UserInterfaceInfo {
      */
     @TableLogic
     private Integer isDelete;
+
+    private static final long serialVersionUID = 1L;
 }
